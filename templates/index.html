@@ -1,0 +1,197 @@
+{% extends "material/base.html" %}
+{% block content %}
+
+<div class = "showcase container orange lighten-3">
+    <div class = "row">
+        <div class = "col 12 m10 offset-m1 center">
+            <h2>HEART DISEASE PREDICTOR</h2>
+            <p>FLASK web app</p>
+            <a href="{{url_for('index')}}" class ="btn btn-small wave-effect waves-dark ">Reset</a>
+            <a href="{{url_for('preview')}}" class ="btn btn-small black wave-effect waves-dark ">Explore Dataset</a>
+        </div>
+ 
+    </div>
+</div>
+<section class="section section-signup">
+    <div class="container">
+        <div class="row">
+
+            <div class="col 30 m6">
+                <div class = "card-panel grey lighten-3 grey-text text-darken-4 z-depth-0">    
+                        <form  action ="{{url_for('predict')}}" method="POST">
+                                <div class ="input-field">
+                                    <p class ="range-field ">
+                                   
+                                        <input type="range" id="ageInput" min="1" max="100" step="1" value="0" name="age">
+                                    <label for="">   ----AGE--- </label>
+                                </div>
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="sexInput" name="sex" min="0" max="1" step="1" value="0" >
+                                        <label for=""> SEX(1->MALE,,,0->FEMALE) </label>
+                                    </div>
+                    
+                                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="cpInput" min="0" max="3" step="1" value="0" name="cp">
+                                        <label for="">CP(CHEST PAIN TYPE) </label>
+                                </div>
+                    
+                                <div class ="input-field">
+                                    <p class ="range-field">
+                                   
+                                        <input type="range" id="trestbpsInput" min="100" max="200" step="5" value="0" name="trestbps">
+                                    <label for="">TRESTBPS(resting blood pressure mm/Hg)</label>
+                                </div>   
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range"  id="cholInput" min="100" max="500" step="20" value="0" name="chol">
+                                        <label for="">CHOL(serum cholestrol in mg/dl)</label>
+                                </div> 
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="rangeInput" min="0" max="1" step="1" value="0" name="fbs">
+                                            
+                                        <label for="">FBS(fasting blood sugar>120 mg/dl)(1->true,0->false)</label>
+                                </div>
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="restecgInput" min="0" max="1" step="1" value="0" name="restecg">
+
+                                        <label for="">resting electrocardiographic results</label>
+                                </div>
+                    
+                                
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="thalach" min="90" max="200" step="5" value="0" name="thalach">
+
+                                        <label for="">THALACH(maximum heart rate achieved)</label>
+                                </div>
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="exangInput" min="0" max="1" step="1" value="0" name="exang">
+
+                                        <label for="" >EXANG(exercise induced angina (1->yes,0=no)</label>
+                                </div>
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="oldpeakInput" min="0" max="10" step="0.1" value="0" name="oldpeak">
+
+                                        <label for="">OLDPEAK(depression induced by exercise relative to rest)</label>
+                                </div>
+                    
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id ="slopeInput" min="0" max="2" step="1" value="0" name="slope">
+
+                                        <label for="">SLOPE(the slope of the peak exercise ST segment)</label>
+                                </div>
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="caInput" min="0" max="1" step="1" value="0" name="ca">
+
+                                        <label for="">CA(number of major vessels (0-3) colored by flourosop)</label>
+                                </div>
+                                <div class ="input-field">
+                                        <p class ="range-field">
+                                       
+                                            <input type="range" id="thalInput" min="0" max="3" step="1" value="0" name="thal">
+
+                                        <label for="">THAL(3 = normal; 6 = fixed defect; 7 = reversable defect)</label>
+                                </div>
+                                <div class="input-field" style="height:100px">
+                                        <select id="role" name="model_choice">
+                                            <option value="" disabled selected>Select Model</option>
+                                             <option value="logitmodel">Logistic Regression</option>
+                                               <option value="knnmodel">K-Nearest Neighbour</option>
+                                                <option value="svmmodel">SVM</option>
+                                                  <option value ="naivebaise">Niave baise</option>
+                                                   <option value="decesiontree"> Decesion Tree</option>
+                                        </select>
+                                    <label for="role">Select ML Algorithm</label>
+                                </div>
+                                
+                                <input type="reset" value="Clear" class="btn btn-small  waves-dark btn-extend ">   
+                                <input type="submit" value="predict" class="btn btn-small orange waves-dark btn-extend ">     
+                                            
+                        </form>
+                    </div>
+                </div>
+     <div class="col 20 m3 offers ">
+        <div class="card-panel purple lighten-4 grey-text text-darken-4 z-depth-0">
+             <p>AGE :{{age}}</p>
+             <p>SEX :{{sex}}</p>
+             <p>CP :{{cp}}</p>
+             <p>TRESTBPS :{{trestbps}}</p>
+             <p>CHOL:{{chol}}</p>
+             <p>FBS:{{fbs}}</p>
+             <p>RESTECG:{{restecg}}</p>
+             <p>THALACH:{{thalach}}</p>
+             <p>EXANG:{{exang}}</p>
+             <p>OLDPEAK:{{oldpeak}}</p>
+             <p>SLOPE:{{slope}}</p>
+             <p>CA:{{ca}}</p>
+             <p>THAL:{{thal}}</p>
+        Using {{model_selected}} on {{clean_data}}
+        </div>
+    </div>
+
+
+    <div class="col s14 m4 offers">
+        <h5>PREDICTION</h5>
+        <div class = "collection" role ="alert">
+            <p class ="collection-item active cyan">STATUS OF YOUR HEART {{ predicted_result }}</p>
+        </div>
+        <div class="card-image waves-effect waves-block waves-light">
+             {% if  predicted_result == [0] %}
+              <img src ="static/fine.jpg"  width="200px" height="100px">
+            {% elif predicted_result== [1] %}  
+                <img src="static/not_fine.jpg" width="200px" height="120px">
+
+            {% endif %} 
+
+              
+
+        </div>
+    </div>
+    <div>
+    </div>
+    <div>
+    </div>
+</section>
+
+{% endblock %}
+  
+{% block scripts %}
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+        
+    <script>
+          $(document).ready(function(){
+            $('select').formSelect();
+          });
+</script>
+
+
+
+{% endblock %}
